@@ -15,23 +15,31 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   PaymentMethod? selectedMethod;
-  final screenWidth =
-      MediaQuery.of(navigatorKey.currentState!.context).size.width;
-  final screenHeight =
-      MediaQuery.of(navigatorKey.currentState!.context).size.height;
+  final screenWidth = MediaQuery.of(navigatorKey.currentState!.context).size.width;
+  final screenHeight = MediaQuery.of(navigatorKey.currentState!.context).size.height;
   final FocusNode _cardFocusNode = FocusNode();
+  final FocusNode _cardFocusNode2 = FocusNode();
+  final FocusNode _cardFocusNode3 = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _cardFocusNode.addListener(() {
-      setState(() {}); // Rebuild when focus changes
+      setState(() {});
+    });
+    _cardFocusNode2.addListener(() {
+      setState(() {});
+    });
+    _cardFocusNode3.addListener(() {
+      setState(() {});
     });
   }
 
   @override
   void dispose() {
     _cardFocusNode.dispose();
+    _cardFocusNode2.dispose();
+    _cardFocusNode3.dispose();
     super.dispose();
   }
   @override
@@ -275,7 +283,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: screenWidth * 0.005,
+                                  height: screenWidth * 0.025,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -285,7 +293,6 @@ class _FirstScreenState extends State<FirstScreen> {
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-
                                       children: [
                                         Text(
                                           "Expiry Date",
@@ -302,6 +309,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                               width: screenWidth * 0.25,
                                               height: screenHeight * 0.05,
                                               child: TextFormField(
+                                                focusNode: _cardFocusNode2,
                                                 keyboardType: TextInputType.number,
                                                 inputFormatters: [
                                                   LengthLimitingTextInputFormatter(
@@ -344,10 +352,10 @@ class _FirstScreenState extends State<FirstScreen> {
                                               width: screenWidth * 0.13,
                                               decoration: BoxDecoration(
                                                 border: Border.all(
-                                                  color: _cardFocusNode.hasFocus
+                                                  color: _cardFocusNode2.hasFocus
                                                       ? Color.fromRGBO(176, 176, 176, 1) // Focused
                                                       : Color.fromRGBO(239, 239, 239, 1), // Default
-                                                  width: _cardFocusNode.hasFocus ? 1.5 : 1,
+                                                  width: _cardFocusNode2.hasFocus ? 1.5 : 1,
                                                 ),
                                                 borderRadius: BorderRadius.only(
                                                   topRight: Radius.circular(4),
@@ -374,32 +382,69 @@ class _FirstScreenState extends State<FirstScreen> {
                                           ),
                                         ),
                                         SizedBox(height: screenWidth * 0.01),
-                                        SizedBox(
-                                          width: screenWidth * 0.4,
-                                          height: screenHeight * 0.05,
-                                          child: TextField(
-                                            keyboardType: TextInputType.number,
-                                            inputFormatters: [
-                                              FilteringTextInputFormatter
-                                                  .digitsOnly,
-                                              LengthLimitingTextInputFormatter(
-                                                  4),
-                                            ],
-                                            decoration: InputDecoration(
-                                              hintText: '123',
-                                              hintStyle: TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontSize: screenWidth * 0.035,
-                                                fontWeight: FontWeight.w100,
-                                                color: Color.fromRGBO(
-                                                    118, 115, 128, 1),
-                                              ),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: screenWidth * 0.25,
+                                              height: screenHeight * 0.05,
+                                              child: TextFormField(
+                                                focusNode: _cardFocusNode3,
+                                                keyboardType: TextInputType.number,
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter
+                                                      .digitsOnly,
+                                                  LengthLimitingTextInputFormatter(
+                                                      4),
+                                                ],
+                                                decoration: InputDecoration(
+                                                  hintText: '123',
+                                                  hintStyle: TextStyle(
+                                                    fontFamily: 'Archivo',
+                                                    fontSize: screenWidth * 0.035,
+                                                    fontWeight: FontWeight.w100,
+                                                    color: Color.fromRGBO(
+                                                        118, 115, 128, 1),
+                                                  ),
+                                                  enabledBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color.fromRGBO(239, 239, 239, 1),
+                                                    ),
+                                                    borderRadius: BorderRadius.only(
+                                                      topLeft: Radius.circular(6),
+                                                      bottomLeft: Radius.circular(6),
+                                                    ),
+                                                  ),
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color.fromRGBO(176, 176, 176, 1),
+                                                      width: 1.5,
+                                                    ),
+                                                    borderRadius: BorderRadius.only(
+                                                      topLeft: Radius.circular(6),
+                                                      bottomLeft: Radius.circular(6),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
+                                            Container(
+                                              height: screenHeight * 0.05,
+                                              width: screenWidth * 0.13,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: _cardFocusNode3.hasFocus
+                                                      ? Color.fromRGBO(176, 176, 176, 1) // Focused
+                                                      : Color.fromRGBO(239, 239, 239, 1), // Default
+                                                  width: _cardFocusNode3.hasFocus ? 1.5 : 1,
+                                                ),
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(4),
+                                                  bottomRight: Radius.circular(4),
+                                                ),
+                                              ),
+                                              child: Icon(Icons.info_outline_rounded),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
